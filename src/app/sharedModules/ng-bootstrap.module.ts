@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { NgbAlertModule, NgbCollapseModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule, NgbCollapseModule, NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     imports: [
@@ -8,6 +8,7 @@ import { NgbAlertModule, NgbCollapseModule, NgbAccordionModule } from '@ng-boots
         NgbAlertModule.forRoot(),
         NgbCollapseModule.forRoot(),
         NgbAccordionModule.forRoot(),
+        NgbModalModule.forRoot()
         
     ],
     exports: [

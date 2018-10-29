@@ -16,7 +16,7 @@ $body-bg: rgb(245,245,245);
 
 .large-icon{
     font-size: 200px;
-    color: red;
+    color: map-get($theme-colors, 'danger' );
 }
 
 .of{

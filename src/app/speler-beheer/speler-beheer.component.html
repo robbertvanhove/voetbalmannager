@@ -1,3 +1,42 @@
-<p>
-  speler-beheer works!
-</p>
+<div class="card shadow">
+  <div class="card-body row">
+    <div class="col-12 text-right">
+      <button class="btn btn-outline-success mb-2" (click)="open(content)">
+        <i class="fas fa-plus"></i> Nieuwe speler
+      </button>
+    </div>
+    <div class="col-12">
+        <table class="table  table-striped">
+            <thead class="thead-primary">
+              <th>
+                Naam
+              </th>
+              <th>
+                Acties
+              </th>
+            </thead>
+            <tbody>
+                <tr *ngFor= "let speler of (spelerService.spelers$ | async )" >
+                  <td>{{speler.naam}}</td>
+                  <td>heej</td>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>
+<pre>{{ spelerService.spelers$ | async | json }}</pre>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Speler toevoegen</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-newspeler></app-newspeler>
+    </div>
+    
+  </ng-template>
+  
