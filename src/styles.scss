@@ -1,0 +1,58 @@
+
+$theme-colors: (
+    'primary': #0B4DA9,
+    'secondary': #5E98DE
+);
+
+$body-bg: rgb(245,245,245);
+
+
+
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+
+
+
+.large-icon{
+    font-size: 200px;
+    color: red;
+}
+
+.of{
+    font-size: 40px !important;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.btn-outline-secondary {
+    cursor: not-allowed;
+}
+
+.navbar-text {
+    font-size: 70%;
+    color: white !important;
+}
+
+.avatar {
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.white-text{
+    color: white
+}
+
+*{
+    margin: 0;
+    padding:0;
+}
+
+.black-overlay {
+    position:absolute !important;
+    background-color: rgba($color: map-get($theme-colors,'secondary'), $alpha: 0.5) !important;
+}

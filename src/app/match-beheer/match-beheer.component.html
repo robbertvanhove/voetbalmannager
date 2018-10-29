@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-12 ">
+    <ngb-accordion [closeOthers]="true">
+      <ngb-panel *ngFor="let match of matchen" >
+        <ng-template ngbPanelTitle class="">
+          
+            {{match.tegenstander}}
+            <span class="badge badge-primary badge-pill">Uit</span>
+          
+        </ng-template>
+        <ng-template ngbPanelContent>
+         
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+
+</div>

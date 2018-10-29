@@ -1,0 +1,14 @@
+<div class="row">
+  <app-dashcard class="col-md-6" *ngFor="let i of cards" [cardContent]="i"></app-dashcard>
+</div>  
+
+<div class="row mt-4">
+  <div class="col-12 ">
+    <h3>Het laatste nieuws uit de premier league</h3>
+  </div>
+ 
+  
+  <app-articlecard class="col-md-4" *ngFor="let article of (news$ | async)?.articles.slice(0,9)" [article]="article"></app-articlecard>
+  <ngx-spinner size="large" type="square-jelly-box">
+  </ngx-spinner>
+</div>

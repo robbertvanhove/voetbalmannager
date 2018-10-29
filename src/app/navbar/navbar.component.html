@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top shadow">
+  <a class="navbar-brand" href="#!">{{title}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarContent" [ngbCollapse]="isCollapsed" (click)="isCollapsed = !isCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active" *ngIf="user" >Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/matchbeheer" routerLinkActive="active" *ngIf="user">Matchbeheer</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" routerLink="/spelersbeheer" routerLinkActive="active" *ngIf="user">Spelersbeheer</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" routerLink="/stats" routerLinkActive="active" *ngIf="user">Statistieken</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" routerLink="/info" routerLinkActive="active">Info</a>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav">
+        <span class="navbar-text d-md-block d-sm-none" *ngIf="user">
+          <img [src]="user.photoURL" class="avatar" alt="avatar">
+              {{ user.displayName }}
+        </span>
+        <li class="nav-item" *ngIf="!user">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Aanmelden</a>
+        </li>
+        <li class="nav-item" *ngIf="user">
+          <a class="nav-link" routerLink="/login" (click)="authService.logout()">Afmelden</a>
+        </li>
+      </ul>
+  </div>
+</nav>
