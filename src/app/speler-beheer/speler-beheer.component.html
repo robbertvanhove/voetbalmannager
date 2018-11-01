@@ -1,42 +1,97 @@
 <div class="card shadow">
   <div class="card-body row">
     <div class="col-12 text-right">
-      <button class="btn btn-outline-success mb-2" (click)="open(content)">
+      <button class="btn btn-success mb-2" (click)="open(newSpelerModal)">
         <i class="fas fa-plus"></i> Nieuwe speler
       </button>
     </div>
     <div class="col-12">
-        <table class="table  table-striped">
-            <thead class="thead-primary">
-              <th>
-                Naam
-              </th>
-              <th>
-                Acties
-              </th>
-            </thead>
-            <tbody>
-                <tr *ngFor= "let speler of (spelerService.spelers$ | async )" >
-                  <td>{{speler.naam}}</td>
-                  <td>heej</td>
-                </tr>
-            </tbody>
-          </table>
+      <table class="table  table-striped">
+        <thead class="thead-primary">
+          <th>
+            Naam
+          </th>
+          <th>
+            Acties
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let speler of (spelerService.spelers$ | async )" >
+            <td>{{speler.naam}}</td>
+            <td>
+              <button (click)="editSpeler = speler; open(editSpelerModal)" class="btn btn-outline-secondary mr-1">
+                  <i class="far fa-edit"></i>
+              </button>
+              <button class="btn btn-outline-danger" (click)="deleteSpeler(speler)">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-<pre>{{ spelerService.spelers$ | async | json }}</pre>
 
-<ng-template #content let-modal>
+
+<!--Nieuwe speler modal-->
+<ng-template #newSpelerModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Speler toevoegen</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #spelerForm="ngForm" (submit)="addSpeler();">
+      <div class="form-group">
+        <label for="naam">Naam</label>
+        <input type="text" id="naam" class="form-control" required minlength="3" name="myNaam" #myNaam="ngModel"
+          [(ngModel)]="newSpeler.naam">
+      </div>
+
+      <div class="form-group">
+        <label for="geslacht">Geslacht</label>
+        <select class="form-control" id="geslacht" required [(ngModel)]="newSpeler.geslacht" name="geslacht">
+          <option *ngFor="let geslacht of geslachten" [value]="geslacht">{{geslacht}}</option>
+        </select>
+      </div>
+
+      <button [disabled]="spelerForm.invalid" type="submit" class="btn btn-primary" >
+        Voeg toe
+      </button>
+    </form>
+  </div>
+
+</ng-template>
+
+<!--Bewerken speler modal-->
+<ng-template #editSpelerModal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Speler toevoegen</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <h4 class="modal-title" id="modal-basic-title">{{editSpeler.naam}} bewerken</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <app-newspeler></app-newspeler>
-    </div>
-    
-  </ng-template>
+      <form #editSpelerForm="ngForm" (submit)="updateSpeler()">
+        <div class="form-group">
+          <label for="naam">Naam</label>
+          <input type="text" id="naam" class="form-control" required minlength="3" name="myNaam" #myNaam="ngModel"
+            [(ngModel)]="editSpeler.naam">
+        </div>
   
+        <div class="form-group">
+          <label for="geslacht">Geslacht</label>
+          <select class="form-control" id="geslacht" required [(ngModel)]="editSpeler.geslacht" name="geslacht">
+            <option *ngFor="let geslacht of geslachten" [value]="geslacht">{{geslacht}}</option>
+          </select>
+        </div>
+  
+        <button [disabled]="editSpelerForm.invalid" type="submit" class="btn btn-primary" >
+          Opslaan
+        </button>
+      </form>
+    </div>
+  
+  </ng-template>

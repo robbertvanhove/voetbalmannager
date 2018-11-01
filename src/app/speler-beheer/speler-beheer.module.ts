@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SpelerBeheerComponent } from './speler-beheer.component';
-import { NewspelerComponent } from './newspeler/newspeler.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -10,6 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [SpelerBeheerComponent, NewspelerComponent]
+  declarations: [SpelerBeheerComponent]
 })
 export class SpelerBeheerModule { }

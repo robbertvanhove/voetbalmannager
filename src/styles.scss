@@ -10,9 +10,12 @@ $body-bg: rgb(245,245,245);
 
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import '~ngx-toastr/toastr-bs4-alert.scss';
 
-
-
+.toast-position{
+    bottom: 5px;
+    right: 5px;
+}
 
 .large-icon{
     font-size: 200px;

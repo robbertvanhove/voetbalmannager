@@ -1,7 +1,9 @@
-import { Speler } from 'src/app/interfaces/speler';
+import { Speler } from './../interfaces/speler';
+import { Geslacht } from './../enum/geslacht.enum';
 import { SpelerService } from './../services/speler.service';
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-speler-beheer',
@@ -12,43 +14,44 @@ export class SpelerBeheerComponent implements OnInit {
 
   closeResult: String;
   spelers: Array<Object>;
-  
+  newSpeler: Speler;
+  editSpeler: Speler;
+  geslachten: Array<String> = Object.keys(Geslacht).filter(k => typeof Geslacht[k as any] === "number");
+  modalReference: any;
 
-  constructor(private modalService: NgbModal, private spelerService: SpelerService) { }
-
-  
+  constructor(private modalService: NgbModal, public spelerService: SpelerService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.leesSpelers();
-    console.log(this.spelers)
-  }
-
-  leesSpelers(){
-    let spelers = [];
-    this.spelerService.spelers$.subscribe(data => {
-      spelers = data
-    });
-
-    this.spelers = spelers;
+    this.newSpeler= new Speler();
+    this.editSpeler = new Speler();
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size: 'lg'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalReference = this.modalService.open(content);
   }
 
-  
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
+  addSpeler() {
+    this.spelerService.addSpeler(this.newSpeler);
+    this.closeModal();
+    this.toastr.success(this.newSpeler.naam + " toegevoegd!");
+    this.newSpeler = new Speler();
   }
+
+  updateSpeler(){
+    this.spelerService.updateSpeler(this.editSpeler);
+    this.closeModal();
+    this.toastr.success("Speler bijgewerkt!", this.editSpeler.naam + " is bijgewerkt");
+
+  }
+
+  deleteSpeler(speler){
+    console.log(speler);
+    this.spelerService.deleteSpeler(speler);
+    this.toastr.success(`${speler.naam} is verwijdert!`)
+  }
+
+  closeModal(){
+    this.modalReference.close();
+  }
+
 }
