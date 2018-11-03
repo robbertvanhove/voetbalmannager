@@ -20,6 +20,7 @@ import { environment } from '../environments/environment';
 import { MatchitemModule } from './match-beheer/matchitem/matchitem.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { from } from 'rxjs';
+import { LivematchModule } from './livematch/livematch.module';
 
 
 
@@ -43,7 +44,7 @@ import { from } from 'rxjs';
     AngularFireModule.initializeApp(environment.firebase),  
     AngularFirestoreModule.enablePersistence(),             
     AngularFireAuthModule, MatchitemModule,   
-    NgxSpinnerModule
+    NgxSpinnerModule, LivematchModule
   ],
   providers: [],
   bootstrap: [AppComponent]

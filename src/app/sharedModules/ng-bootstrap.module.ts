@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { NgbAlertModule, NgbCollapseModule, NgbAccordionModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule, NgbCollapseModule, NgbAccordionModule, NgbModalModule, NgbTooltipModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
     imports: [
         CommonModule,
@@ -14,14 +15,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
             timeOut: 3000,
             positionClass: 'toast-position'
         }),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgbTooltipModule.forRoot(),
+        NgbProgressbarModule.forRoot(),
+        NgMultiSelectDropDownModule.forRoot()
         
     ],
     exports: [
         NgbAlertModule,
         NgbCollapseModule,
         NgbAccordionModule,
-        ToastrModule
+        ToastrModule,
+        NgbTooltipModule,
+        NgbProgressbarModule
     ],
     declarations: []
 })

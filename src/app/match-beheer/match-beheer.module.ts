@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatchBeheerComponent } from './match-beheer.component';
 import { MatchitemComponent } from './matchitem/matchitem.component';
+import { NgForm, FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    NgBootstrapModule
+    NgBootstrapModule,
+    FormsModule
   ],
   declarations: [MatchBeheerComponent, MatchitemComponent]
 })

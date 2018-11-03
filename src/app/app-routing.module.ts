@@ -8,6 +8,7 @@ import { InfoComponent } from './info/info.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LivematchComponent } from './livematch/livematch.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'matchbeheer', component: MatchBeheerComponent, canActivate: [AuthGuard] },
   { path: 'spelersbeheer', component: SpelerBeheerComponent, canActivate: [AuthGuard] },
   { path: 'stats', component: StatsComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent, },
+  { path: 'livematch', component: LivematchComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: Error404Component }
 ];

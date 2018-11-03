@@ -14,7 +14,7 @@ $body-bg: rgb(245,245,245);
 
 .toast-position{
     bottom: 5px;
-    right: 5px;
+    left: 5px;
 }
 
 .large-icon{
@@ -58,4 +58,19 @@ $body-bg: rgb(245,245,245);
 .black-overlay {
     position:absolute !important;
     background-color: rgba($color: map-get($theme-colors,'secondary'), $alpha: 0.5) !important;
+}
+
+.fab{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 30px;
+    border: none;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    
 }

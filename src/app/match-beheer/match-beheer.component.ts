@@ -1,5 +1,11 @@
+import { Router } from '@angular/router';
+import { LivematchService } from './../services/livematch.service';
+import { Match } from './../interfaces/match';
 import { Component, OnInit } from '@angular/core';
-import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpelerService } from '../services/speler.service';
+import { Speler } from '../interfaces/speler';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-match-beheer',
@@ -8,78 +14,65 @@ import { NgbAccordionConfig } from '@ng-bootstrap/ng-bootstrap';
   styles: []
 })
 export class MatchBeheerComponent implements OnInit {
-  matchen: Array<Object>;
 
-  constructor(config: NgbAccordionConfig) {
-    config.closeOthers=true;
-    config.type='secondary white-text d-flex justify-content-between align-items-center';
-   }
+  private modalReference: any;
+  newMatch: Match;
+  bevestig = false;
+  spelers: Array<Speler>;
+  matchBezig: Boolean;
+
+
+  constructor(private modalService: NgbModal,
+    public spelerService: SpelerService, public livematchService: LivematchService, private router: Router) {
+
+
+    livematchService = new LivematchService();
+
+
+    this.matchBezig = livematchService.checkMatch();
+  }
 
   ngOnInit() {
-    this.setMatchen();
-  }
-//TODO: Dees afwerken
-  setMatchen() {
-    this.matchen = [
-      {
-        thuis: true,
-        datum: '28-10-2018',
-        tijd: '14:05',
-        tegenstander: 'Oevel',
-        afgelopen: true,
-        doelpunten: [
-          {
-            spelerKey: '1',
-            tijd: '243'
-          },
-          {
-            spelerKey: '2',
-            tijd: '400'
-          }
-        ],
-        tegendoelpunten:[
-          {
-            tijd: 300
-          }
-        ],
-        
-      },
-      {
-        thuis: false,
-        datum: '22-10-2018',
-        tijd: '14:05',
-        tegenstander: 'Merksplas',
-        afgelopen: true,
-        doelpunten: [
-          {
-            spelerKey: '1',
-            tijd: '243'
-          }
-        ],
-        tegendoelpunten:[
-          {
-            tijd: 300
-          }
-        ],
-        
-      },
-      { 
-        thuis: true,
-        datum: '22-10-2018',
-        tijd: '14:05',
-        tegenstander: 'Lentezon',
-        afgelopen: true,
-        doelpunten: [
-          
-        ],
-        tegendoelpunten:[
-          {
-            tijd: 300
-          }
-        ],
-        
-      },
-    ]
+    this.newMatch = new Match();
+    this.newMatch.thuis = true;
+    this.newMatch.lengte = 60;
+    this.newMatch.beginSelectie = [];
   }
 
+  openModal(content) {
+    this.modalReference = this.modalService.open(content);
+  }
+
+  closeModal() {
+    this.modalReference.close();
+  }
+
+  confirmMatch() {
+
+    this.bevestig = true;
+  }
+
+  beginMatch() {
+    this.livematchService.liveMatch = this.newMatch;
+    this.livematchService.writeLS();
+    this.closeModal();
+    this.router.navigate(['/livematch']);
+  }
+
+  openLive() {
+    this.router.navigate(['/livematch']);
+  }
+
+  toggleSelectie(speler: Speler){
+    if(!this.newMatch.beginSelectie.includes(speler)){
+      this.newMatch.beginSelectie.push(speler);
+    } else{
+      this.newMatch.beginSelectie.splice(this.newMatch.beginSelectie.indexOf(speler), 1);
+    }
+    console.log(this.newMatch.beginSelectie);
+  }
+
+
+   
+  
 }

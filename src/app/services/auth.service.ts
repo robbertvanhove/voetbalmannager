@@ -96,11 +96,11 @@ export class AuthService {
             this.userData$.next({
                 uid: user.uid,
                 displayName: user.displayName || user.email,
-                photoURL: user.photoURL || '/assets/icons/icon-72x72.png',
+                photoURL: user.photoURL || false,
                 email: user.email,
             });
             if(this.router.url === '/login'){
-                this.router.navigate(['/spelersbeheer']);  
+                this.router.navigate(['/matchbeheer']);  
             }
             
         } else {

@@ -1,18 +1,99 @@
 <div class="row">
   <div class="col-12 ">
     <ngb-accordion [closeOthers]="true">
-      <ngb-panel *ngFor="let match of matchen" >
+      <ngb-panel *ngFor="let match of matchen">
         <ng-template ngbPanelTitle class="">
-          
-            {{match.tegenstander}}
-            <span class="badge badge-primary badge-pill">Uit</span>
-          
+
+          {{match.tegenstander}}
+          <span class="badge badge-primary badge-pill">Uit</span>
+
         </ng-template>
         <ng-template ngbPanelContent>
-         
+
         </ng-template>
       </ngb-panel>
     </ngb-accordion>
   </div>
 
 </div>
+
+
+
+<button class="fab shadow btn-primary" (click)="openModal(newMatchModal)" *ngIf="!matchBezig">
+  <i class="fas fa-futbol"></i>
+</button>
+
+<button class="fab shadow btn-succes" *ngIf="matchBezig" (click)="openLive()">
+  LIVE
+</button>
+
+<ng-template #newMatchModal class="modal-lg">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Begin een nieuwe match</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #newMatchForm="ngForm" (submit)="confirmMatch();" *ngIf="!bevestig">
+      <div class="form-group">
+        <label for="tegenstander">Tegenstander</label>
+        <input type="text" id=tegenstander class="form-control" required minlength="3" name="myTegenstander"
+          #myTegenstander="ngModel" [(ngModel)]="newMatch.tegenstander">
+      </div>
+      <div class="form-group">
+        <label for="lengte">Hoe lang duurt de match (minuten):</label>
+        <input type="number" required id="lengte" name="myLengte" #myLengte="ngModel" class="form-control" [(ngModel)]="newMatch.lengte" />
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" id="thuis" name="myThuis" #myThuis="ngModel" class="form-check-input" [(ngModel)]="newMatch.thuis" />
+        <label class="form-check-label" for="thuis">Thuis:</label>
+
+      </div>
+      <div class="form-group">
+        <label>Selectie:</label>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let speler of (spelerService.spelers$ | async)" (click)="toggleSelectie(speler)">
+              {{speler.naam}} <i class="fas fa-check" *ngIf="newMatch.beginSelectie.includes(speler)"></i>
+            </li>
+          </ul>
+      </div>
+      
+      
+
+      <button [disabled]="newMatchForm.invalid" type="submit" class="btn btn-primary">
+        Start
+      </button>
+    </form>
+
+    <div *ngIf="bevestig" class="row">
+      <div class="col-12">
+        <h5>Kijk alles nog eens na</h5>
+        <p>Tegenstander: {{newMatch.tegenstander}}</p>
+        <p>Lengte: {{newMatch.lengte}} minuten</p>
+        <p>Thuis: {{newMatch.thuis? 'Ja': 'Nee'}}</p>
+        <p>Selectie:</p>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let speler of newMatch.beginSelectie">{{speler.naam}}</li>
+        </ul>
+
+      </div>
+      <div class="col-6 mt-5">
+        <button class="btn btn-outline-danger" (click)="bevestig = false">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+      </div>
+
+      <div class="col-6 mt-5 text-right">
+        <button class="btn btn-primary" (click)= "beginMatch()">
+            <i class="fas fa-futbol"></i> Begin match
+        </button>
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</ng-template>
