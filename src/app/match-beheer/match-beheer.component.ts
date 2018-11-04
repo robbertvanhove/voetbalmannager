@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { LivematchService } from './../services/livematch.service';
 import { Match } from './../interfaces/match';
@@ -5,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbAccordionConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpelerService } from '../services/speler.service';
 import { Speler } from '../interfaces/speler';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-match-beheer',
@@ -23,20 +23,13 @@ export class MatchBeheerComponent implements OnInit {
 
 
   constructor(private modalService: NgbModal,
-    public spelerService: SpelerService, public livematchService: LivematchService, private router: Router) {
-
-
-    livematchService = new LivematchService();
-
-
-    this.matchBezig = livematchService.checkMatch();
+    public spelerService: SpelerService, public livematchService: LivematchService, private router: Router, private toastr: ToastrService) {
+      livematchService = new LivematchService();
+      this.matchBezig = livematchService.checkMatch();
   }
 
   ngOnInit() {
     this.newMatch = new Match();
-    this.newMatch.thuis = true;
-    this.newMatch.lengte = 60;
-    this.newMatch.beginSelectie = [];
   }
 
   openModal(content) {
@@ -48,8 +41,11 @@ export class MatchBeheerComponent implements OnInit {
   }
 
   confirmMatch() {
-
-    this.bevestig = true;
+    if (this.newMatch.beginSelectie.length > 0) {
+      this.bevestig = true;
+    } else {
+      this.toastr.warning("Selecteer spelers voor uw selectie!");
+    }
   }
 
   beginMatch() {
@@ -63,16 +59,16 @@ export class MatchBeheerComponent implements OnInit {
     this.router.navigate(['/livematch']);
   }
 
-  toggleSelectie(speler: Speler){
-    if(!this.newMatch.beginSelectie.includes(speler)){
+  toggleSelectie(speler: Speler) {
+    if (!this.newMatch.beginSelectie.includes(speler)) {
       this.newMatch.beginSelectie.push(speler);
-    } else{
+    } else {
       this.newMatch.beginSelectie.splice(this.newMatch.beginSelectie.indexOf(speler), 1);
     }
     console.log(this.newMatch.beginSelectie);
   }
 
 
-   
-  
+
+
 }

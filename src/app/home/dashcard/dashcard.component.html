@@ -1,11 +1,11 @@
 <div class="card shadow-sm mt-3">
-  <div class="card-header bg-secondary">
-    <i class="{{cardContent.icon}}"></i>
-    {{cardContent.titel}}
+  <div class="card-header text-light bg-secondary">
+    <i class="{{icon}}"></i>
+    {{titel}}
   </div>
   <div class="card-body">
-    <p class="card-text">{{cardContent.tekst}}</p>
-    <a class="card-link" routerLink="{{cardContent.route}}" routerLinkActive="active">
+    <p class="card-text"><ng-content></ng-content></p>
+    <a class="card-link" routerLink="{{route}}" routerLinkActive="active">
         <i class="fas fa-external-link-alt"></i>
     </a>
   </div>

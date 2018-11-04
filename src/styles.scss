@@ -1,7 +1,9 @@
 
 $theme-colors: (
     'primary': #0B4DA9,
-    'secondary': #5E98DE
+    'secondary': #5E98DE,
+    'bluegrey': rgb(140,140,160),
+    'darkbluegrey': rgb(30,30,100)
 );
 
 $body-bg: rgb(245,245,245);
@@ -50,27 +52,61 @@ $body-bg: rgb(245,245,245);
     color: white
 }
 
-*{
-    margin: 0;
-    padding:0;
-}
 
-.black-overlay {
-    position:absolute !important;
-    background-color: rgba($color: map-get($theme-colors,'secondary'), $alpha: 0.5) !important;
-}
 
-.fab{
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    font-size: 30px;
-    border: none;
-    height: 80px;
-    width: 80px;
+
+
+.fab {
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
+    box-shadow: 0 6px 10px 0 #666;
+    transition: all 0.1s ease-in-out;
+    border: none;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    cursor: pointer;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+
+    @include media-breakpoint-down(md) { 
+        bottom: 10px;
+        right: 10px;
+     }
+     
+ }
+
+ .fab:hover {
+    box-shadow: 0 6px 14px 0 #666;
+    
+ }
+  
+ button:hover{
+    transform: scale(1.05); 
+}
+
+ .card-header.cap-header{
+    height: 100px;
+    line-height: 80px;
     vertical-align: middle;
     text-align: center;
-    cursor: pointer;
     
-}
+    > span.header-title{
+        font-size: 25px;
+        &-lg{
+            font-size: 50px;
+        }
+    }
+
+    
+ }
+
+ .pointer{
+     cursor: pointer;
+ }
+
+ 
+

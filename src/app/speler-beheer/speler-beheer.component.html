@@ -1,30 +1,26 @@
+<div class="row">
+  <div class="col-md-4 mt-4" *ngFor="let speler of (spelerService.spelers$ | async)">
+    <div class="card shadow-lg">
+      <div class="card-header cap-header bg-bluegrey text-light">
+        <span class="header-title">
+          {{speler.naam}}
+        </span>
 
-      <table class="table  table-striped bg-light shadow">
-        <thead class="thead-primary">
-          <th>
-            Naam
-          </th>
-          <th>
-            Acties
-          </th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let speler of (spelerService.spelers$ | async )">
-            <td>{{speler.naam}}</td>
-            <td>
-              <button (click)="editSpeler = speler; open(editSpelerModal)"
-                      class="btn btn-outline-secondary mr-1"
-                      placement="left" ngbTooltip="Speler bewerken">
-                <i class="far fa-edit"></i>
-              </button>
-              <button class="btn btn-outline-danger" (click)="deleteSpeler(speler)">
-                <i class="far fa-trash-alt"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-   
+      </div>
+      <div class="card-body ">
+        <button (click)="editSpeler = speler; open(editSpelerModal)" class="btn btn-secondary mr-1" placement="left"
+          ngbTooltip="Speler bewerken">
+          <i class="fas fa-pen"></i>
+        </button>
+        <button class="btn btn-outline-danger" (click)="deleteSpeler(speler)">
+          <i class="far fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <button class="fab btn-success shadow" (click)="open(newSpelerModal)">
   <i class="fas fa-plus"></i>

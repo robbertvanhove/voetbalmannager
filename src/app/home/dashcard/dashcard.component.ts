@@ -9,7 +9,9 @@ import { Title } from '@angular/platform-browser';
 })
 export class DashcardComponent implements OnInit {
 
-  @Input() cardContent: Cardcontent;
+  @Input() titel: String;
+  @Input() route: String;
+  @Input() icon: String;
 
 
   constructor() {

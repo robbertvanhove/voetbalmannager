@@ -1,5 +1,7 @@
+import { AuthService } from './auth.service';
 import { Match } from './../interfaces/match';
 import { Injectable } from '@angular/core';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'

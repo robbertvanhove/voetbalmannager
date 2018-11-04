@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
         color: ''
     };
 
-    constructor(public authService: AuthService) {    // LET OP: injecteer public !!!!
+    constructor(public authService: AuthService) {    
     }
 
     ngOnInit() {

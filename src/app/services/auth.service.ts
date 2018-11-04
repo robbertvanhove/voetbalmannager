@@ -100,7 +100,7 @@ export class AuthService {
                 email: user.email,
             });
             if(this.router.url === '/login'){
-                this.router.navigate(['/matchbeheer']);  
+                this.router.navigate(['/home']);  
             }
             
         } else {

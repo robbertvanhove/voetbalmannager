@@ -1,5 +1,90 @@
-<pre>
-    {{livematch | json}}
+<div class="row">
+  <div class="col-md-4 mb-2" [ngClass]="{'order-1': livematch.thuis, 'order-3': !livematch.thuis}">
+    <div class="card shadow">
+      <div class="card-header cap-header bg-darkbluegrey text-light">
+        <span class="header-title-lg">
+          {{livematch.doelpunten.length}}
+        </span>
+      </div>
+      <div class="card-body text-center">
+        <h5 class="card-title">Wij</h5>
+        <div class="row">
+          <div class="col-6">
+            <button class="btn btn-success btn-lg btn-block">
+              <i class="far fa-futbol"></i>
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="btn  btn-outline-secondary btn-lg btn-block">
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 order-2 mb-2">
+    <div class="card shadow">
+      <div class="card-header cap-header">
+        <span class="header-title-lg">
+          {{convertService.secondsToTime(livematch.tijd)}}
+        </span>
+      </div>
+      <div class="card-body bg-dark">
+        <div class="row">
+          <div class="col-6">
+            <button class="btn btn-outline-light btn-large btn-block" (click)="addTime(timerConfig.twoBack)">
+              <i class="fas fa-backward"></i>
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-outline-light btn-large btn-block" (click)="addTime(timerConfig.twoForward)">
+              <i class="fas fa-forward"></i>
+            </button>
+          </div>
+          <div class="col-6 mt-2">
+            <button class="btn btn-outline-light btn-large btn-block" (click)="addTime(timerConfig.oneBack)">
+              <i class="fas fa-step-backward"></i>
+            </button>
+          </div>
+          <div class="col-6 mt-2">
+            <button class="btn btn-outline-light btn-large btn-block" (click)="addTime(timerConfig.oneForward)">
+              <i class="fas fa-step-forward"></i>
+            </button>
+          </div>
 
-</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-2" [ngClass]="{'order-1': !livematch.thuis, 'order-3': livematch.thuis}">
+    <div class="card shadow">
+      <div class="card-header cap-header bg-darkbluegrey text-light">
+        <span class="header-title-lg">
+          {{livematch.tegenDoelpunten.length}}
+        </span>
+      </div>
+      <div class="card-body text-center">
+        <h5 class="card-title">{{livematch.tegenstander}}</h5>
+        <div class="row">
+          <div class="col-12">
+            <button class="btn btn-danger btn-lg btn-block" (click)="maakTegenDoelpunt()">
+              <i class="far fa-futbol"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+
+<!--FAB's-->
+<button class="fab btn-success shadow" *ngIf="!started" (click)="startTimer()">
+  <i class="fas fa-play"></i>
+</button>
+
+<button class="fab btn-danger shadow" *ngIf="started" (click)="stopTimer()">
+  <i class="fas fa-stop"></i>
+</button>

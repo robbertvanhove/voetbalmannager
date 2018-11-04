@@ -23,7 +23,7 @@ export class SpelerService {
   laatsteSpeler$: Observable<Speler>;
 
   constructor(private afs: AngularFirestore, private authService: AuthService, private toastr: ToastrService) {
-    this.authService.userData$.subscribe(data => this.user = data);
+    this.authService.userData$.subscribe(data => this.user = data).unsubscribe();
     this.spelers$ = this.afs.collection<any>(this.collection,
       ref => ref.where("uid", "==", this.user.uid).orderBy('naam', 'asc')
     ).valueChanges();

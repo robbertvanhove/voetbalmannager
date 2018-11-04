@@ -6,48 +6,31 @@ import { AppModule } from './../app.module';
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Match } from '../interfaces/match';
+import { LivematchService } from '../services/livematch.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styles: []
 })
 export class HomeComponent implements OnInit {
-  cards: Array<Object>;
+  
   news$: Observable<any>;
   loading: Boolean = true;
-
-  constructor(private footnewsService: FootnewsService, private progressConfig: NgbProgressbarConfig, private spelerService: SpelerService) {
-
+  livematch: Match;
+  matchBezig: Boolean;
+  constructor(private liveMatchService: LivematchService, private footnewsService: FootnewsService, private progressConfig: NgbProgressbarConfig, private spelerService: SpelerService) {
+    liveMatchService = new LivematchService();
   }
 
   ngOnInit() {
-    this.setCards();
     this.getNews();
-
+    this.matchBezig = this.liveMatchService.checkMatch();
+    if(this.matchBezig){
+      this.livematch = this.liveMatchService.liveMatch;
+    }
   }
 
-  setCards() {
-    this.cards = [
-      {
-        titel: 'Matchbeheer',
-        tekst: 'Beheer hier uw matchen',
-        icon: 'fas fa-futbol',
-        route: '/matchbeheer'
-      },
-      {
-        titel: 'Spelerbeheer',
-        tekst: `Laatst toegevoegd `,
-        icon: 'fas fa-user',
-        route: '/spelersbeheer'
-      },
-      {
-        titel: 'Statistieken',
-        tekst: 'Bekijk hier uw statistieken',
-        icon: 'far fa-chart-bar',
-        route: '/stats'
-      }
-    ];
-  }
 
   getNews() {
     this.news$ = this.footnewsService.getNews()

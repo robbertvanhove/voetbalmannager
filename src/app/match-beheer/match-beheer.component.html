@@ -1,30 +1,9 @@
-<div class="row">
-  <div class="col-12 ">
-    <ngb-accordion [closeOthers]="true">
-      <ngb-panel *ngFor="let match of matchen">
-        <ng-template ngbPanelTitle class="">
-
-          {{match.tegenstander}}
-          <span class="badge badge-primary badge-pill">Uit</span>
-
-        </ng-template>
-        <ng-template ngbPanelContent>
-
-        </ng-template>
-      </ngb-panel>
-    </ngb-accordion>
-  </div>
-
-</div>
-
-
-
 <button class="fab shadow btn-primary" (click)="openModal(newMatchModal)" *ngIf="!matchBezig">
   <i class="fas fa-futbol"></i>
 </button>
 
-<button class="fab shadow btn-succes" *ngIf="matchBezig" (click)="openLive()">
-  LIVE
+<button class="fab btn-warning shadow btn-succes" *ngIf="matchBezig" (click)="openLive()">
+  <i class="fas fa-arrow-right"></i>
 </button>
 
 <ng-template #newMatchModal class="modal-lg">
@@ -52,14 +31,15 @@
       </div>
       <div class="form-group">
         <label>Selectie:</label>
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let speler of (spelerService.spelers$ | async)" (click)="toggleSelectie(speler)">
-              {{speler.naam}} <i class="fas fa-check" *ngIf="newMatch.beginSelectie.includes(speler)"></i>
-            </li>
-          </ul>
+        <div class="list-group">
+          <li class="pointer list-group-item d-flex justify-content-between align-items-center" *ngFor="let speler of (spelerService.spelers$ | async)"
+            (click)="toggleSelectie(speler)">
+            {{speler.naam}} <i class="fas fa-check" style="color:green" *ngIf="newMatch.beginSelectie.includes(speler)"></i>
+          </li>
+        </div>
       </div>
-      
-      
+
+
 
       <button [disabled]="newMatchForm.invalid" type="submit" class="btn btn-primary">
         Start
@@ -80,19 +60,15 @@
       </div>
       <div class="col-6 mt-5">
         <button class="btn btn-outline-danger" (click)="bevestig = false">
-            <i class="fas fa-arrow-left"></i>
+          <i class="fas fa-arrow-left"></i>
         </button>
       </div>
 
       <div class="col-6 mt-5 text-right">
-        <button class="btn btn-primary" (click)= "beginMatch()">
-            <i class="fas fa-futbol"></i> Begin match
+        <button class="btn btn-primary" (click)="beginMatch()">
+          <i class="fas fa-futbol"></i> Begin match
         </button>
       </div>
-
-
-
-
     </div>
 
   </div>
